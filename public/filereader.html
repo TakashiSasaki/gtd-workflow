@@ -1,0 +1,33 @@
+<input type="radio" id="fileReader" name="accordion">
+<label for="fileReader">Read local file</label>
+<div class="container">
+  <input type="file" id="fileInput"/>
+  <div><span class="icon-upload"></span>or drop a file here.</div>
+  <input id="local-file-name" readonly="1" placeholder="<local file name>">
+  <input id="local-file-size" readonly="1" placeholder="<local file size>">
+  <input id="local-file-type" readonly="1" placeholder="<local file type>">
+  <input id="local-file-last-modified-time" readonly="1" placeholder="<local file last modified time>">
+  <input id="local-file-last-modified-date" readonly="1" placeholder="<local file last modified date>">
+</div>
+<script>
+document.getElementById("fileInput").addEventListener("change", function(e){
+  console.log("change");
+  var files = e.target.files;
+  if(files.length === 0) {
+    alert("no file");
+    return;
+  }
+  var file = files[0];
+  var lastModified = file.lastModified;
+  var lastModifiedData = file.lastModifiedDate;
+  var name = file.name;
+  var size = file.size;
+  var type = file.type;
+  
+  var reader = new FileReader();
+  reader.onload = function(e){
+    alert(e.target.result);
+  }
+  reader.readAsText(file, "utf8");
+}, false);
+</script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>gtd-workflow</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css"/>
+    <script src="/pwa.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js" ></script>
+    <script src="/firebase.js" ></script>
+    <script src="/bookmark.js" ></script>
+    <script src="/filereader.js" ></script>
+  </head>  
+  <body>
+    <a href="https://console.firebase.google.com/project/dashboard-52fd5/overview?hl=ja" target="_blank">Firebase console</a>
+    <a href="https://glitch.com/edit/#!/gtd-workflow">Edit on glitch.com</a>
+    <a href="https://gtd-workflow.glitch.me/">Live page on glitch.me</a>
+    <div class="collapse" id="accordion">
+    </div>
+    <script>
+      function addToAccordion(path, callback){
+        setTimeout(function(){
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", path, true);
+          xhr.responseType ="text";
+          xhr.send("");
+          xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+              document.getElementById("accordion").insertAdjacentHTML("beforeend", xhr.response);  
+              setTimeout(callback, Math.random()*100);
+            }//if
+          }//onreadystatechange
+        },Math.random()*100);
+      }
+      addToAccordion("/bookmark.html", onBookmarkHtmlLoaded);
+      addToAccordion("/filereader.html", onFileReaderHtmlLoaded);
+      addToAccordion("/firebase.html", onFirebaseHtmlLoaded);
+    </script>
+  </body>
+</html>

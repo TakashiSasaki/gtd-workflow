@@ -1,0 +1,38 @@
+<input type="radio" id="firebase-debug" name="accordion">
+<label for="firebase-debug">Firebase Authentication</label>
+<div class="container">
+  <button id="sign-in-by-google">Sign-in by Google</button>
+  <fieldset>
+    <input id="firebase-user-email" placeholder="user email">
+    <input id="firebase-user-password" placeholder="user password">
+    <button id="buttonCreateUser">create</button>
+    <button id="buttonLogin">login</button>
+    <button id="buttonLogout">logout</button>
+  </fieldset>
+  <label>User ID</label><input id="firebase-user-uid" placeholder="user ID" readonly="1">
+  <label>Verified</label><input id="firebase-user-email-verified" placeholder="user email verified" readonly="1">
+  <img id="firebase-user-photo-url">
+  <label>Anonymous</label><input id="firebase-user-is-anonymous" placeholder="user is anonymous" readonly="1">
+  <label>Display Name</label><input id="firebase-user-display-name" placeholder="userdisplay name" readonly="1">
+  <textarea id="firebase-auth-log"></textarea>
+</div>
+
+<input type="radio" id="firebase-service-account" name="accordion">
+<label for="firebase-service-account">Firebase Service Account</label>
+<div class="container">
+    <input id="firebase-service-account-access-type" placeholder="service account access type" readonly>
+    <input id="firebase-service-account-email" placeholder="service account email" readonly>
+    <input id="firebase-service-account-scope" placeholder="service account scope" readonly>
+    <input id="firebase-service-account-expires-in" placeholder="service accont expores in" readonly>
+</div>
+
+
+<input type="radio" id="firebase-database" name="accordion">
+<label for="firebase-database">Firebase Database</label>
+<div class="container">
+  <span id="firebase-userdata-uid-path"></span>
+  <textarea placeholder="clipbaord"></textarea>
+  <input placeholder="last updated" readonly/>
+  <button id="buttonFirebaseDatabaseWriteByServiceAccount">write by service account, only for Google Apps Script</button>
+  <button id="buttonFirebaseDatabaseWriteByUserAccount">write by user account</button>
+</div>

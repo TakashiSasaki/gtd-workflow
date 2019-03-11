@@ -1,0 +1,25 @@
+{
+  "name": "gtd-workflow",
+  "version": "0.0.0",
+  "main": "server.js",
+  "description" : "gtd-workflow",
+  "dependencies": {
+    "firebase-tools": "^6.4.0",
+    "express": "^4.16.4",
+    "web-push": "^3.3.3"
+  },
+  "scripts": {
+    "start-webpage": "ws --port 3000 --log.format combined --directory . --blacklist '/.env' '/.data' '/.git'",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/gtd-workflow"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node", "glitch", "express"
+  ]
+}
