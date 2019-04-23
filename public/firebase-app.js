@@ -118,3 +118,16 @@ function onFirebaseHtmlLoaded(){
   });
 
 }//onFirebaseHtmlLoaded
+
+function signInFirebase(){
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      console.log("accessToken = " + result.credential.accessToken);
+      console.log("currentUser = " + firebase.auth().currentUser);
+      //document.getElementById("firebase-auth-log").value = JSON.stringify(result.user);
+  }).catch(function(error) {
+      console.log(JSON.stringify(error));
+      //document.getElementById("firebase-auth-log").value = JSON.stringify(error);
+  });
+}

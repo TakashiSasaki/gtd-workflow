@@ -4,18 +4,21 @@
 //あるキャッシュ名でキャッシュされた情報はブラウザ側に存在する限り二度と読み込まれない。
 //キャッシュする情報が変わるたびに CACHE_NAME も変える。
 //バージョン番号をつけて管理するのも良い方法の一つである。
-var CACHE_NAME = 'gtd-workflow-0.0.11';
-var DEBUG = true;
+var CACHE_NAME = 'gtd-workflow-0.1.2';
 
 var urlsToCache = [
   //'/',
   '/manifest.json',
   //'/index.html',
-  '/firebase.html',
-  '/firebase.js',
-  '/pwa.js',
-  '/style.css',
-  /*'https://www.gstatic.com/firebasejs/5.8.0/firebase.js'*/
+  //'/firebase.html',
+  '/firebase-config.js',
+  //'/pwa.js',
+  'sw.js',
+  //'/style.css',
+  //'https://www.gstatic.com/firebasejs/5.8.0/firebase.js',
+  "/firebase-5.8.0.js",
+  "https://unpkg.com/hammerjs@2.0.8/hammer.min.js",
+  "https://unpkg.com/muuri@0.7.1/dist/muuri.min.js"
 ];
 
 self.addEventListener('install', function(event) {
@@ -23,10 +26,8 @@ self.addEventListener('install', function(event) {
   event.waitUntil(self.skipWaiting());
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
-      console.log("Waiting for cache completion. ")
       return cache.addAll(urlsToCache);
     }).catch(function(e){
-      console.log(e); 
     })
   );
 });
@@ -38,7 +39,6 @@ self.addEventListener('activate', function(event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(cacheNames.map(function(cacheName) {
         if ([CACHE_NAME].indexOf(cacheName) === -1) {
-          console.log(cacheName + " should be deleted.");
           return caches.delete(cacheName);
         }
       }));
@@ -47,10 +47,6 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log("'fetch' event is fired.");
-  if(DEBUG == true) {
-    return fetch(event.request);
-  };
   event.respondWith(
     //リクエストされたものがキャッシュの中にあればレスポンス返す
     caches.match(event.request)
@@ -94,3 +90,26 @@ self.addEventListener("push", function(event) {
     })
   )
 })
+
+// firebaseのトークンを取得して resolve する Promise
+// 例外が発生した時は reject が呼ばれる
+const getIdToken = ()=> {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user)=> {
+      unsubscribe();
+      if(user) {
+        // サインイン済み
+        user.getIdToken().then((idToken) => {
+          // サインイン済みでトークンが取れた
+          resolve(idToken);
+        }, (error)=>{
+          // サインイン済みだけどトークンが取れなかった
+          resolve(null);
+        });
+      } else {
+        // サインインしていない状態
+        resolve(null);
+      }
+    });
+  });
+};
