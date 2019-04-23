@@ -59,6 +59,18 @@ textarea {
   width: 100%;
 }
 
+h1 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 1rem;
+}
+
+p {
+  margin: 0px;
+  padding: 0px;
+  font-size: 1rem;
+}
+
 #firebase-signin-button img{
   /*display: none;*/
   max-width: 100px;

@@ -18,7 +18,8 @@ var urlsToCache = [
   //'https://www.gstatic.com/firebasejs/5.8.0/firebase.js',
   "/firebase-5.8.0.js",
   "https://unpkg.com/hammerjs@2.0.8/hammer.min.js",
-  "https://unpkg.com/muuri@0.7.1/dist/muuri.min.js"
+  "https://unpkg.com/muuri@0.7.1/dist/muuri.min.js",
+  "https://unpkg.com/bootstrap@4.3.1/dist/css/bootstrap-reboot.css"
 ];
 
 self.addEventListener('install', function(event) {
