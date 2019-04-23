@@ -2,7 +2,8 @@
 
 body {
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
-  margin: 2em;
+  margin: 1px;
+  padding: 1px;
 }
 
 h1 {
@@ -59,6 +60,7 @@ textarea {
 }
 
 #firebase-signin-button img{
+  /*display: none;*/
   max-width: 100px;
   max-height: 100px;
 }
