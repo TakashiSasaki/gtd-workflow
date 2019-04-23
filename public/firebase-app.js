@@ -131,3 +131,7 @@ function signInFirebase(){
       //document.getElementById("firebase-auth-log").value = JSON.stringify(error);
   });
 }
+
+function signOutFirebase(){
+  firebase.auth().signOut();
+}

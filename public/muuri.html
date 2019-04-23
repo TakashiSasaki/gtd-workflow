@@ -34,7 +34,6 @@
         </div>
       </div>
     </div>
-    <textarea>aaa</textarea>
     <script>
       function loadDocument(url, callback){
         var xhr = new XMLHttpRequest();
@@ -45,7 +44,6 @@
       }//loadDocument
     </script>
     <script>
-      var textarea = document.getElementsByTagName("textarea")[0];
       var grid = new Muuri(".grid" , {
         dragEnabled: true, 
         dragSortInterval: 70,
@@ -71,33 +69,34 @@
             console.log("setting " + k + " to " + i);
           }
         }
-        //textarea.value += x;
       });
 
       loadDocument("/firebase-signin-button.html", (d)=>{
+        grid.add(d.getElementsByTagName("div")[0]);
+        grid.sort("default");
+        var img = document.getElementById("firebase-signin-button").getElementsByTagName("img")[0];
         firebase.auth().onAuthStateChanged((x)=>{
           if(x){
-            d.getElementById("displayName").value = x.displayName;
-            d.getElementById("email").value = x.email;
+            document.getElementById("displayName").value = x.displayName;
+            document.getElementById("email").value = x.email;
             x.getIdToken().then((idToken)=>{
-              d.getElementById("idToken").value = idToken;
-              grid.add(d.getElementsByTagName("div")[0]);
-              grid.refreshSortData();
-              grid.sort("default");
+              document.getElementById("idToken").value = idToken;
             },(error)=>{
               d.getElementById("idToken").value = error;
-              grid.add(d.getElementsByTagName("div")[0]);              
-              grid.refreshSortData();
-              grid.sort("default");
             });
+            img.setAttribute("src", firebase.auth().currentUser.photoURL);
+            document.getElementById("uid").value = firebase.auth().currentUser.uid;
+            grid.layout();
+          } else {
+            img.setAttribute("src", "https://tnckb94959.i.lithium.com/skins/images/3AB578B02FD7B257A7B52D5E05139FE9/atlassian_community/images/icon_anonymous_profile.png");
+            document.getElementById("uid").value = "NOT LOGGED IN";
+            document.getElementById("idToken").value = "NOT LOGGED IN";
+            document.getElementById("displayName").value = "NOT LOGGED IN";
+            document.getElementById("email").value = "NOT LOGGED IN";            
+            grid.layout();
           }//if
-        });
-      });
+        });//onAuthStateChanged
+      });//loadDocument
     </script>
-    <script>
-      
-      console.log("currentUser = " +　firebase.auth().currentUser);
-    </script>
-    
   </html>
 </html>

@@ -1,18 +1,31 @@
 <div class="item" id="firebase-signin-button">
   <div>
-    <button onclick="ahoaho()">
-      SIGN IN    
+    <button onclick="signInFirebase()">
+      SIGN IN
     </button>    
+    <button onclick="signOutFirebase()">
+      SIGN OUT
+    </button>
   </div>
-  <div>
-    <label>idToken<input id="idToken" readonly></label>    
-  </div>
-  <div>
-    <label>displayName<input id="displayName" readonly></label>
-  </div>
-  <div>
-    <label>email<input id="email" readonly></label>
-  </div>
+  <table>
+    <tr>
+      <td>
+        <div>
+          <label>displayName<input id="displayName" readonly></label>
+        </div>
+        <div>
+          <label>email<input id="email" readonly></label>
+        </div>    
+        <div>
+          <label>uid<input id="uid" readonly></label>    
+        </div>        
+        <div>
+          <label>idToken<input id="idToken" readonly></label>    
+        </div>
+      </td>
+      <td>
+        <img>
+      </td>
+    </tr>
+  </table>
 </div>
-<script>
-</script>
