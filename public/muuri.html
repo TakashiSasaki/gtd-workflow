@@ -41,14 +41,22 @@
       </div>
     </div>
     <script>
+      if (location.protocol != 'https:') {
+       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
+    <script>
       function loadDocument(url, callback){
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.responseType = "document";
         xhr.onload = ()=>{
           var documentFragment = xhr.responseXML.querySelector("body :first-child");
+          documentFragment.classList.add("item");
           var itemElement = grid.add(documentFragment)[0].getElement();
-          callback(itemElement);
+          if(callback){
+            callback(itemElement);
+          }
         };
         xhr.send();
       }//loadDocument
@@ -81,7 +89,7 @@
         }
       });
 
-      loadDocument("/firebase-signin-button.html", (itemElement)=>{
+      loadDocument("/item/firebase-signin-button.html", (itemElement)=>{
         grid.sort("default");
         var img = document.querySelector("img");
         var displayName = itemElement.querySelector("[name='displayName']");
@@ -113,7 +121,7 @@
         });//onAuthStateChanged
       });//loadDocument
       
-      loadDocument("/hello.html", (itemElement)=>{
+      loadDocument("/item/hello.html", (itemElement)=>{
         firebase.database().ref("appConfig/helloMessage").on("value", (snapshot)=>{
           var v = snapshot.val();
           itemElement.querySelector("[name='helloMessage']").innerHTML = v;
@@ -128,10 +136,10 @@
         });
       });
       
-      loadDocument("/userData.html", (itemElement)=>{
+      loadDocument("/item/userData.html", (itemElement)=>{
       });
       
-      loadDocument("/localStorage.html", (itemElement)=>{
+      loadDocument("/item/localStorage.html", (itemElement)=>{
         window.addEventListener("setItem", (event)=>{
           itemElement.querySelector('[name="lastModified"]').value = new Date();
           itemElement.querySelector("[name='key']").value = event.key;
@@ -141,6 +149,8 @@
         //window.localStorage.setItem("random", Math.random());
       });
       
+      loadDocument("/item/admin.html");
+      loadDocument("/item/memopad.html");
       
     </script>
   </html>
