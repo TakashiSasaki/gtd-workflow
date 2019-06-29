@@ -23,6 +23,10 @@ app.get("/muuri.html", function(request, response){
   response.sendFile(__dirname + "/public/muuri.html");
 });
 
+app.get("/hello-firebase", function(request, response){
+  response.sendFile(__dirname + "/public/hello-firebase.html");
+});
+
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
